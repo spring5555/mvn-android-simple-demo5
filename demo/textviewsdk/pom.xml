@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+        <artifactId>demo</artifactId>
+        <groupId>com.special.demo</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+	<groupId>com.special.demo.view</groupId>
+	<artifactId>textviewsdk</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>aar</packaging>
+	<name>textviewsdk</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<platform.version>4.1.1.4</platform.version>
+		<android.plugin.version>4.0.0-rc.2</android.plugin.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android</artifactId>
+			<version>${platform.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+		<build>
+		<finalName>${project.artifactId}</finalName>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+					<artifactId>android-maven-plugin</artifactId>
+					<version>${android.plugin.version}</version>
+					<extensions>true</extensions>
+										<executions>
+						<!-- <execution> <id>run</id> <goals> <goal>deploy</goal> <goal>run</goal> 
+							</goals> <phase>install</phase> </execution> -->
+						<execution>
+							<id>alignApk</id>
+							<phase>install</phase>
+							<goals>
+								<goal>zipalign</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+					     	<assetsDirectory>${project.basedir}/assets</assetsDirectory>
+						<resourceDirectory>${project.basedir}/res</resourceDirectory>
+						<!-- 
+						<androidManifestFile>${project.build.directory}/filtered-manifest/AndroidManifest.xml</androidManifestFile>
+						 -->
+						 <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
+						<nativeLibrariesDirectory>${project.basedir}/libs</nativeLibrariesDirectory>
+						<!-- <proguardConfig>proguard.cfg</proguardConfig> -->
+						<proguardConfig>proguard-project.txt</proguardConfig>
+						<proguardSkip>${project.build.proguardSkip}</proguardSkip>
+						<manifestDebuggable>${manifest.debuggable}</manifestDebuggable>
+
+						<release>${project.build.release}</release>
+						<run>
+							<debug>${project.build.debug}</debug>
+						</run>
+						<runDebug>${project.build.runDebug}</runDebug>
+						<sign>
+							<debug>${project.build.sign.debug}</debug>
+						</sign>
+						<undeployBeforeDeploy>false</undeployBeforeDeploy>
+						<mergeManifests>true</mergeManifests>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+				<artifactId>android-maven-plugin</artifactId>
+				<configuration>
+					<sdk>
+						<platform>16</platform>
+					</sdk>
+									</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
